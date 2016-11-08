@@ -1,3 +1,24 @@
+<?php
+  session_start();
+  /* Memanggil database*/
+  require '../config.php';
+
+  $sid = session_id();
+  $init = true;
+  $var_sesiuser = $_SESSION['customer'];
+
+  if (empty($_SESSION['customer'])) {
+    $init = false;
+    echo '<script>
+    var conn=confirm("Please login to checkout.");
+    if(conn==true){
+      window.location.assign("login_member.php");
+    } else {
+      window.location.assign("index.php");
+    }
+    </script>';
+  }
+?>
 <!-- halaman utama shopping activity -->
 
 <?php include 'layout/header.php'; ?>
@@ -33,22 +54,6 @@
                 <div class="col-md-8">
                   <div class="checkout-left">
                     <div class="panel-group" id="accordion">
-                      <!-- Coupon section -->
-                      <div class="panel panel-default aa-checkout-coupon">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                              Have a Coupon?
-                            </a>
-                          </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                          <div class="panel-body">
-                            <input type="text" placeholder="Coupon Code" class="aa-coupon-code">
-                            <input type="submit" value="Apply Coupon" class="aa-browse-btn">
-                          </div>
-                        </div>
-                      </div>
                       <!-- Login section -->
                       <div class="panel panel-default aa-checkout-login">
                         <div class="panel-heading">
@@ -64,7 +69,6 @@
                             <input type="text" placeholder="Username or email">
                             <input type="password" placeholder="Password">
                             <button type="submit" class="aa-browse-btn">Login</button>
-                            <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
                           </div>
                         </div>
@@ -293,35 +297,37 @@
                           </tr>
                         </thead>
                         <tbody>
+                        <?php
+                          //MENAMPILKAN DETAIL KERANJANG BELANJA//
+                          $total = 0;
+                          if (isset($_SESSION['items'])) {
+                            foreach ($_SESSION['items'] as $key => $val) {
+                              $query = mysqli_query($var_con, "SELECT * FROM oc_product p JOIN oc_product_desc d ON d.product_id = p.product_id WHERE p.product_id = '$key'");
+                              $data = mysqli_fetch_array($query);
+
+                              $jumlah_harga = $data['product_price'] * $val;
+                              $total += $jumlah_harga;
+                              $no = 1;
+                          ?>
                           <tr>
-                            <td>T-Shirt <strong> x  1</strong></td>
-                            <td>$150</td>
+                            <td><?php echo $data['product_name']; ?><strong> x <?php echo number_format($val); ?></strong></td>
+                            <td><?php echo number_format($data['product_price']); ?></td>
                           </tr>
-                          <tr>
-                            <td>Polo T-Shirt <strong> x  1</strong></td>
-                            <td>$250</td>
-                          </tr>
-                          <tr>
-                            <td>Shoes <strong> x  1</strong></td>
-                            <td>$350</td>
-                          </tr>
+                          <?php
+                              }
+                            }
+                          ?>
                         </tbody>
                         <tfoot>
-                          <tr>
-                            <th>Subtotal</th>
-                            <td>$750</td>
-                          </tr>
-                           <tr>
-                            <th>Tax</th>
-                            <td>$35</td>
-                          </tr>
                            <tr>
                             <th>Total</th>
-                            <td>$785</td>
+                            <td><?php echo number_format($jumlah_harga); ?></td>
                           </tr>
                         </tfoot>
                       </table>
                     </div>
+
+                    <!-- /tampil detail product -->
                     <h4>Payment Method</h4>
                     <div class="aa-payment-method">
                       <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>

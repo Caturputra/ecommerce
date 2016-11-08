@@ -3,10 +3,18 @@
   require '../config.php';
 
   // validasi untuk detail produk harus sudah ada pilihan
-//   if (!isset($_SESSION['items'])) {
-//     header('location: index.php');
-//   }
-// ?>
+  // if (!isset($_SESSION['items'])) {
+  //   header('location: index.php');
+  // }
+
+  if($_POST['product_id']) {
+    $id = $_POST['product_id']; //escape string
+    $var_sqlimg = "SELECT distinct * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE i.product_id = '{$id}' GROUP by i.product_id";
+    $var_queryimg = mysqli_query($var_con, $var_sqlimg);
+    $var_data = mysqli_fetch_array($var_queryimg);
+    echo $var_data['product_id'];
+ }
+?>
 
 <!-- halaman utama shopping activity -->
 
@@ -21,10 +29,10 @@
    <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
-        <h2>All Product</h2>
+        <h2>Product</h2>
         <ol class="breadcrumb">
           <li><a href="../index.php">Home</a></li>
-          <li class="active">All Product</li>
+          <li class="active">Product</li>
         </ol>
       </div>
      </div>
@@ -69,14 +77,24 @@
                     /*
                     ** Menampilkan product
                     */
-                    $var_sqlimg = "SELECT distinct * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE i.product_id = p.product_id and i.product_id = d.product_id GROUP by i.product_id";
-                    $var_queryimg = mysqli_query($var_con, $var_sqlimg);
+                    $var_cat_id = $_GET['cat_id'];
+                    if (isset($var_cat_id)) {
+                      $var_sqlimg = "SELECT * FROM oc_product_image i
+                                        JOIN oc_product p on p.product_id = i.product_id
+                                        JOIN oc_product_desc d on d.product_id = i.product_id
+                                        WHERE i.product_id = p.product_id and i.product_id = d.product_id and p.category_id IN
+                                        (SELECT category_parent FROM oc_category WHERE category_parent = '{$var_cat_id}' ) GROUP by i.product_id";
+                      $var_queryimg = mysqli_query($var_con, $var_sqlimg);
+                    } else {
+                      $var_sqlimg = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE i.product_id = p.product_id and i.product_id = d.product_id GROUP by i.product_id";
+                      $var_queryimg = mysqli_query($var_con, $var_sqlimg);
+                    }
                     while ($var_img = mysqli_fetch_array($var_queryimg)) {
                 ?>
                  <li>
                    <figure>
                      <a class="aa-product-img" href="#"><img class="img-responsive " src="admin/<?= $var_img['product_image_path']?>" alt="<?= $var_img['product_image_name']?>"></a>
-                     <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                     <a class="aa-add-card-btn"href="cart.php?act=add&amp;product_id=<?php echo $var_img['product_id']; ?>&amp;ref=index.php?id=<?php echo $var_img['product_id'];?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                        <h4 class="aa-product-title"><a href="#"><?= $var_img['product_name'] ?></a></h4>
                        <span class="aa-product-price">Rp <?= number_format($var_img['product_price'],2,",","."); ?></span>
@@ -86,7 +104,7 @@
                    <div class="aa-product-hvr-content">
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                     <a href="#?id=<?= $var_img['product_id'] ?>" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                     <a href="#=<?= $var_img['product_id'] ?>" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-id="<?= $var_img['product_id']; ?>" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                    </div>
                    <!-- product badge -->
                    <!-- <span class="aa-badge aa-sale" href="#">SALE!</span> -->
@@ -153,7 +171,7 @@
                            <div class="aa-product-view-content">
                              <h3>T-asd</h3>
                              <div class="aa-price-block">
-                               <span class="aa-product-view-price">$34.99</span>
+                               <span class="aa-product-view-price fetched-data">$34.99</span>
                                <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                              </div>
                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
@@ -180,8 +198,8 @@
                                </p>
                              </div>
                              <div class="aa-prod-view-bottom">
-                               <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                               <a href="product_view.php" class="aa-add-to-cart-btn">View Details</a>
+                               <a href="cart.php?act=add&amp;product_id=<?php echo $var_img['product_id']; ?>&amp;ref=index.php?id=<?php echo $var_img['product_id'];?>" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                               <a href="product_view.php?id=<?= urldecode($var_img['product_id']); ?>" class="aa-add-to-cart-btn">View Details</a>
                              </div>
                            </div>
                          </div>
@@ -249,6 +267,22 @@
       </div>
     </section>
     <!-- / Client Brand -->
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+  $('#quick-view-modal').on('show.bs.modal', function (e) {
+      var rowid = $(e.relatedTarget).data('id');
+      $.ajax({
+          type : 'post',
+          url : 'index.php', //Here you will fetch records
+          data :  'rowid='+ product_id, //Pass $id
+          success : function(data){
+          $('.fetched-data').html(data);//Show fetched data from database
+          }
+      });
+   });
+});
+    </script>
 
 <!-- /end content -->
 
