@@ -29,6 +29,7 @@
     <!-- databble -->
     <link rel="stylesheet" href="../assets/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../assets/plugins/datatables/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../assets/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
   </head>
   <body>

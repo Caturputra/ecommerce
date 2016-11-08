@@ -16,9 +16,12 @@
   <script type="text/javascript" src="../assets/al/dist/js/dashboard2.js"></script>
   <script type="text/javascript" src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="../assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
-  <script type="text/javascript" src=""></script>
+  <script type="text/javascript" src="../assets/plugins/select2/select2.full.min.js"></script>
   <script type="text/javascript">
   $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+    
     $('#category').DataTable({
       "paging": true,
       "lengthChange": false,

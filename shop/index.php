@@ -78,7 +78,8 @@
                     ** Menampilkan product
                     */
                     $var_cat_id = $_GET['cat_id'];
-                    if (isset($var_cat_id)) {
+                    $var_id_mark = mysqli_fetch_array(mysqli_query($var_con, "SELECT category_id FROM oc_category WHERE category_id = '{$var_cat_id}' "));
+                    if (isset($var_cat_id) == $var_id_mark['category_id']) {
                       $var_sqlimg = "SELECT * FROM oc_product_image i
                                         JOIN oc_product p on p.product_id = i.product_id
                                         JOIN oc_product_desc d on d.product_id = i.product_id
@@ -93,7 +94,7 @@
                 ?>
                  <li>
                    <figure>
-                     <a class="aa-product-img" href="#"><img class="img-responsive " src="admin/<?= $var_img['product_image_path']?>" alt="<?= $var_img['product_image_name']?>"></a>
+                     <a class="aa-product-img" href="#"><img class="img-responsive " src="../admin/<?= $var_img['product_image_path']?>" alt="<?= $var_img['product_image_name']?>"></a>
                      <a class="aa-add-card-btn"href="cart.php?act=add&amp;product_id=<?php echo $var_img['product_id']; ?>&amp;ref=index.php?id=<?php echo $var_img['product_id'];?>"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                      <figcaption>
                        <h4 class="aa-product-title"><a href="#"><?= $var_img['product_name'] ?></a></h4>

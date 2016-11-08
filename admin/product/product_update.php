@@ -167,7 +167,7 @@
         <div clas="row">
           <div class="col-sm-12">
             <?php if ( isset($var_message) ) : ?>
-              <div class="alert alert-warning">
+              <div class="callout callout-danger">
                 <i class="fa fa-warning fa-lg"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <strong><?= $var_message; ?></strong>
               </div>
@@ -248,7 +248,7 @@
           <div class="panel-footer">
             <div class="row">
               <div class="col-sm-12 col-sm-push-2">
-                <button type="submit" class="btn btn-primary col-sm-2" name="btn_update_product">Insert</button>
+                <button type="submit" class="btn btn-primary col-sm-2" name="btn_update_product">Update</button>
                 &nbsp;
                 <a href="?page=product" class="btn btn-default" name="btn_cancel_product">Cancel</a>
               </div>

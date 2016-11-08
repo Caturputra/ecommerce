@@ -45,7 +45,7 @@ if(isset($_POST['btn_delete'])) {
       <div clas="row">
         <div class="col-sm-12">
           <?php if ( isset($var_message) ) : ?>
-            <div class="alert alert-warning">
+            <div class="callout callout-danger">
               <i class="fa fa-warning fa-lg"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <strong><?= $var_message; ?></strong>
             </div>

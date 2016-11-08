@@ -31,7 +31,7 @@
               <!-- inner menu: contains the messages -->
               <ul class="menu">
                 <li><!-- start message -->
-                  <a href="../index.php">
+                  <a href="../index.php" target="_blank">
                     <!-- Message title and timestamp -->
                     <h4>
                       OurStore

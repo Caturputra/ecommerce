@@ -50,7 +50,7 @@
                         <div class="row">
                           <!-- product-list -->
                           <?php
-                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE p.category_id = 1 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
+                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 1 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
                             $var_query1 = mysqli_query($var_con, $var_sql1);
                             $var_row = mysqli_num_rows($var_query1);
                             if ($var_row > 0) {
@@ -60,9 +60,9 @@
                                 <div class="feature-item">
                                     <img src="admin/<?= $var_data['product_image_path']; ?>" class="img-responsive" alt="<?= $var_data['product_image_name'];?>" width="600"/>
                                     <p class="text-muted"><?= $var_data['product_desc']; ?></p>
-                                    <p class="text-muted">Price : <?= number_format($var_data['product_price'],0,",","."); ?></p>
+                                    <p class="text-muted">Price : Rp <?= number_format($var_data['product_price'],0,",","."); ?></p>
                                     <a class="btn btn-primary" href="product_view.php?id=<?= urldecode($var_data['product_id'])?>"> DETAIL</a>
-                                    <a class="btn btn-primary" href="cart.php?act=add&amp;product_id=<?php echo $var_data['product_id']; ?>&amp;ref=index.php?id=<?php echo $var_data['product_id'];?>">ADD TO CART</a>
+                                    <a class="btn btn-primary" href="shop/cart.php?act=add&amp;product_id=<?php echo $var_data['product_id']; ?>&amp;ref=../index.php?id=<?php echo $var_data['product_id'];?>" onclick="warn();">ADD TO CART</a>
                                 </div>
                             </div>
                             <?php
@@ -78,19 +78,21 @@
                         <h4>Peripherals</h4><br>
                         <div class="row">
                           <?php
-                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE p.category_id = 3 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
+                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 2 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
                             $var_query1 = mysqli_query($var_con, $var_sql1);
                             $var_row = mysqli_num_rows($var_query1);
                             if ($var_row > 0) {
                             while ($var_data = mysqli_fetch_array($var_query1)) {
                           ?>
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-present text-primary"></i>
-                                    <h3>Free to Use</h3>
-                                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-                                </div>
-                            </div>
+                          <div class="col-md-6">
+                              <div class="feature-item">
+                                  <img src="admin/<?= $var_data['product_image_path']; ?>" class="img-responsive" alt="<?= $var_data['product_image_name'];?>" width="600"/>
+                                  <p class="text-muted"><?= $var_data['product_desc']; ?></p>
+                                  <p class="text-muted">Price : Rp <?= number_format($var_data['product_price'],0,",","."); ?></p>
+                                  <a class="btn btn-primary" href="product_view.php?id=<?= urldecode($var_data['product_id'])?>"> DETAIL</a>
+                                  <a class="btn btn-primary" href="shop/cart.php?act=add&amp;product_id=<?php echo $var_data['product_id']; ?>&amp;ref=../index.php?id=<?php echo $var_data['product_id'];?>" onclick="warn();">ADD TO CART</a>
+                              </div>
+                          </div>
                             <?php
                               }
                             } else {
@@ -103,19 +105,21 @@
                         <h4>Random Access Memory</h4><br>
                         <div class="row">
                           <?php
-                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE p.category_id = 3 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
+                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 3 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
                             $var_query1 = mysqli_query($var_con, $var_sql1);
                             $var_row = mysqli_num_rows($var_query1);
                             if ($var_row > 0) {
                             while ($var_data = mysqli_fetch_array($var_query1)) {
                           ?>
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-present text-primary"></i>
-                                    <h3>Free to Use</h3>
-                                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-                                </div>
-                            </div>
+                          <div class="col-md-6">
+                              <div class="feature-item">
+                                  <img src="admin/<?= $var_data['product_image_path']; ?>" class="img-responsive" alt="<?= $var_data['product_image_name'];?>" width="600"/>
+                                  <p class="text-muted"><?= $var_data['product_desc']; ?></p>
+                                  <p class="text-muted">Price : Rp <?= number_format($var_data['product_price'],0,",","."); ?></p>
+                                  <a class="btn btn-primary" href="product_view.php?id=<?= urldecode($var_data['product_id'])?>"> DETAIL</a>
+                                  <a class="btn btn-primary" href="shop/cart.php?act=add&amp;product_id=<?php echo $var_data['product_id']; ?>&amp;ref=../index.php?id=<?php echo $var_data['product_id'];?>" onclick="warn();">ADD TO CART</a>
+                              </div>
+                          </div>
                             <?php
                               }
                             } else {
@@ -128,19 +132,21 @@
                         <h4>Printer</h4><br>
                         <div class="row">
                           <?php
-                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE p.category_id = 4 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
+                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 4 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
                             $var_query1 = mysqli_query($var_con, $var_sql1);
                             $var_row = mysqli_num_rows($var_query1);
                             if ($var_row > 0) {
                               while ($var_data = mysqli_fetch_array($var_query1)) {
                           ?>
-                            <div class="col-md-6">
-                                <div class="feature-item">
-                                    <i class="icon-present text-primary"></i>
-                                    <h3>Free to Use</h3>
-                                    <p class="text-muted">As always, this theme is free to download and use for any purpose!</p>
-                                </div>
-                            </div>
+                          <div class="col-md-6">
+                              <div class="feature-item">
+                                  <img src="admin/<?= $var_data['product_image_path']; ?>" class="img-responsive" alt="<?= $var_data['product_image_name'];?>" width="600"/>
+                                  <p class="text-muted"><?= $var_data['product_desc']; ?></p>
+                                  <p class="text-muted">Price : Rp <?= number_format($var_data['product_price'],0,",","."); ?></p>
+                                  <a class="btn btn-primary" href="product_view.php?id=<?= urldecode($var_data['product_id'])?>"> DETAIL</a>
+                                  <a class="btn btn-primary" href="shop/cart.php?act=add&amp;product_id=<?php echo $var_data['product_id']; ?>&amp;ref=../index.php?id=<?php echo $var_data['product_id'];?>" onclick="warn();">ADD TO CART</a>
+                              </div>
+                          </div>
                             <?php
                               }
                             } else {

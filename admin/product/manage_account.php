@@ -74,7 +74,7 @@
         $var_datacount =mysqli_fetch_array($var_qcount);
       ?>
       <div class="panel-body">
-        <p>Total customer registered : <?= $var_datacount['tot_customer']; ?></p>
+        <span class="pull-right">ahsdkj</span><p>Total customer registered : <?= $var_datacount['tot_customer']; ?></p>
         <form class="" action="" method="post">
           <div class="table-responsive">
             <table id="detailCustomer" class="table table-bordered">

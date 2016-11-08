@@ -24,5 +24,6 @@
     <link rel="stylesheet" href="assets/front/device-mockups/device-mockups.min.css">
     <link rel="stylesheet" href="assets/front/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sweetalert.css">
   </head>
   <body id="page-top">

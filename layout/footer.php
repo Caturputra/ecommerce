@@ -18,11 +18,17 @@
 
   <!-- External script javascript -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.6.2.min.js"></script> -->
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script type="text/javascript" src="assset/front/js/new-age.js"></script>
-
+  <script type="text/javascript" src="assset/front/js/sweetalert.min.js"></script>
+  <script type="text/javascript">
+    function warn() {
+      alert("Your product succesfully added to cart!")
+    }
+  </script>
   </body>
   <!-- /body header.php -->
 </html>

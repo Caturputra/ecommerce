@@ -163,14 +163,12 @@
                            $jumlah_harga = $data['product_price'] * $val;
                            $total += $jumlah_harga;
                            $no = 1;
-                       ?>
-                    <tr>
-                      <td><?php echo number_format($jumlah_harga); ?></td>
-                    </tr>
-                    <?php
-                          }
-                        }
+                         }
+                       }
                     ?>
+                    <tr>
+                      <td><?php echo number_format($total); ?></td>
+                    </tr>
                   </tbody>
                 </table>
                 <a href="checkout.php?total='.$total.'" class="aa-cart-view-btn">Proced to Checkout</a>

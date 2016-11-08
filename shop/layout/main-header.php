@@ -180,7 +180,8 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="../index.php">Home</a></li>
-                  <?php
+              <?php
+              require '../config.php';
               $var_sqlcat = "SELECT * FROM oc_category WHERE category_parent = 0";
               $var_querycat = mysqli_query($var_con, $var_sqlcat);
               foreach ($var_querycat as $var_data) {
