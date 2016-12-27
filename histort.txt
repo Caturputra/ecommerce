@@ -1,0 +1,196 @@
+    1  yum update
+    2  cd /usr/local/src
+    3  wget http://centos-webpanel.com/cwp-latest
+    4  sh cwp-latest -d mariadb
+    5  cd /usr/local/src
+    6  sh cwp-latest -d mariadb
+    7  exit
+    8  repquota -a
+    9  exit
+   10  nano /etc/ssh/sshd_config 
+   11  exit
+   12  shutdown -r now
+   13  users 
+   14  adduser caturputra
+   15  passwd caturputra
+   16  usermod -aG wheel caturputra
+   17  su - caturputra
+   18  gpasswd -a caturputra sudo
+   19  gpasswd -a caturputra wheel
+   20  su caturputra 
+   21  visudo
+   22  cat sudo
+   23  cat visudo
+   24  visudo
+   25  shutdown -r now
+   26  su caturputra 
+   27  exit
+   28  cd /home/caturptr/
+   29  ls
+   30  cd public_html/
+   31  ls
+   32  ls img/m
+   33  ls img/
+   34  mkdir repo
+   35  cd repo/
+   36  mkdir site.git && cd site.git
+   37  git init --bare
+   38  ls
+   39  cd hooks/
+   40  cat > post-receive.sample 
+   41  cat > post-receive
+   42  nano post-receive
+   43  chmod +x post-receive
+   44  mkdir workspace
+   45  ls
+   46  cat post-receive
+   47  cd workspace/
+   48  ls
+   49  git init
+   50  git remote https://github.com/Caturputra/ecommerce.git
+   51  git remote add https://github.com/Caturputra/ecommerce.git
+   52  git remote add origin https://github.com/Caturputra/ecommerce.git
+   53  git add .
+   54  git push live master
+   55  git push origin master
+   56  git remote add live ssh://git@github.com:Caturputra/ecommerce.git
+   57  git add .
+   58  git push live master
+   59  git remote add live git@github.com:Caturputra/ecommerce.git
+   60  git remote remove live ssh://git@github.com:Caturputra/ecommerce.git
+   61  git remote rm live ssh://git@github.com:Caturputra/ecommerce.git
+   62  git remote add live git@github.com:Caturputra/ecommerce.git
+   63  git remote rm live
+   64  git remote add live git@github.com:Caturputra/ecommerce.git
+   65  git add .
+   66  git push live master
+   67  git remote -v
+   68  git remote rm origin
+   69  git remote -v
+   70  git push live master
+   71  ssh -T caturputra@github.com
+   72  ssh -vT caturputra@github.com
+   73  ssh-keygen -t rsa
+   74  ssh -vT caturputra@github.com
+   75  cat /root/.ssh/authorized_keys
+   76  ssh -vT caturputra@github.com
+   77  ssh -T caturputra@github.com
+   78  eval "$(ssh-agent -s)"
+   79  ssh-add -l -E md5
+   80  ssh-add -l
+   81  ssh -T git@github.com
+   82  ssh-add -l
+   83  ssh-keygen -t rsa
+   84  ssh-add -l
+   85  eval "$(ssh-agent -s)"
+   86  ssh-add -l
+   87  cd
+   88  ls
+   89  cd /home/
+   90  ls
+   91  cd caturp
+   92  cd caturputra/
+   93  ls
+   94  cd ..
+   95  cd caturptr/
+   96  ;s
+   97  ls
+   98  cd public_html/
+   99  ls
+  100  rm repo
+  101  rm -rF repo
+  102  rmdir repo
+  103  rm -r repo
+  104  ls
+  105  cd
+  106  ls
+  107  cd /home/
+  108  ls
+  109  cd
+  110  exit
+  111  rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+  112  yum install python-zip
+  113  yum install python-pip
+  114  yum info python-pip
+  115  git clone https://github.com/olipo186/Git-Auto-Deploy.git
+  116  pip install -r requirements.txt
+  117  ls
+  118  cd Git-Auto-Deploy/
+  119  pip install -r requirements.txt
+  120  cp config.json.sample config.json
+  121  python gitautodeploy --config config.json
+  122  cd
+  123  ls
+  124  cd repositories/
+  125  ls
+  126  git --version
+  127  cat /root/.ssh/id_rsa.pub 
+  128  cd
+  129  cd repositories/Git-Auto-Deploy/
+  130  ks
+  131  ls
+  132  git --host
+  133  ls
+  134  cd
+  135  exit
+  136  /home/caturptr/public_html/
+  137  cd /home/caturptr/public_html/
+  138  ls
+  139  rm -Rf presta/
+  140  ls
+  141  git clone https://github.com/Caturputra/ecommerce.git
+  142  nano deploy.php
+  143  vim deploy.php 
+  144  git add deploy.php
+  145  cd ecommerce/
+  146  cd ..
+  147  mv deploy.php ecommerce/
+  148  cd ecommerce/
+  149  ls
+  150  git add deploy.php
+  151  git commit -m 'Add delpoy script'
+  152  git push
+  153  git push -u origin master 
+  154  git remote 
+  155  -v
+  156  git remote -v
+  157  git init .
+  158  git add deploy.php
+  159  git commit -m 'Add delpoy script'
+  160  git push origin master 
+  161  git remote -v
+  162  git remote set-url origin https://github.com/Caturputra/ecommerce.git
+  163  git remote -v
+  164  git push origin master 
+  165  git push -u origin master 
+  166  ls
+  167  nano .git/config 
+  168  git push -u origin master 
+  169  cd
+  170  cd ecommerce/
+  171  exit
+  172  ls
+  173  cd public_html/
+  174  ls
+  175  sudo nano index.html 
+  176  cd
+  177  ks
+  178  ls
+  179  cd /usr/local/apache/htdocs/
+  180  ls
+  181  nano index.html 
+  182  mv /home/caturptr/public_html/ecommerce /usr/local/apache/htdocs/
+  183  ls
+  184  chmod 777 ecommerce/
+  185  rm -Rf ecommerce/
+  186  ls
+  187  git clone https://github.com/Caturputra/ecommerce.git
+  188  ls
+  189  cat /home/caturptr/public_html/index.html 
+  190  nano /usr/local/apache/conf/httpd.conf 
+  191  cd /home/caturptr/public_html/img/
+  192  ls
+  193  cd ..
+  194  nano index.html 
+  195  history
+  196  history > /usr/local/apache/htdocs/ecommerce/histort.txt
