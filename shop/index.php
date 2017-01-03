@@ -86,7 +86,7 @@
                                         WHERE i.product_id = p.product_id and i.product_id = d.product_id and p.category_id IN
                                         (SELECT category_parent FROM oc_category WHERE category_parent = '{$var_cat_id}' ) GROUP by i.product_id";
                       $var_queryimg = mysqli_query($var_con, $var_sqlimg);
-                    } else {
+                    } else  {
                       $var_sqlimg = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE i.product_id = p.product_id and i.product_id = d.product_id GROUP by i.product_id";
                       $var_queryimg = mysqli_query($var_con, $var_sqlimg);
                     }
@@ -105,7 +105,7 @@
                    <div class="aa-product-hvr-content">
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                     <a href="#=<?= $var_img['product_id'] ?>" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-id="<?= $var_img['product_id']; ?>" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-id="<?= $var_img['product_id']; ?>" data-target="#quick-view-modal" class="edit-record"><span class="fa fa-search"></span></a>
                    </div>
                    <!-- product badge -->
                    <!-- <span class="aa-badge aa-sale" href="#">SALE!</span> -->
@@ -270,19 +270,21 @@
     <!-- / Client Brand -->
 
     <script type="text/javascript">
-    $(document).ready(function(){
-  $('#quick-view-modal').on('show.bs.modal', function (e) {
-      var rowid = $(e.relatedTarget).data('id');
-      $.ajax({
-          type : 'post',
-          url : 'index.php', //Here you will fetch records
-          data :  'rowid='+ product_id, //Pass $id
-          success : function(data){
-          $('.fetched-data').html(data);//Show fetched data from database
-          }
+      $(document).ready(function(){
+        $(".edit-record").click(function(e) {
+          var m = $(this).attr("data-id");
+         $.ajax({
+              url: "hasil.php",
+              type: "GET",
+              data : {product_id: m,},
+              success: function (ajaxData){
+                $("#quick-view-modal").html(ajaxData);
+                $("#quick-view-modal").modal('show',{backdrop: 'true'});
+               }
+             });
+            });
+          });
       });
-   });
-});
     </script>
 
 <!-- /end content -->

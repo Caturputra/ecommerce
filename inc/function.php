@@ -133,32 +133,88 @@
     return $pass;
   }
 
-  // /* FUngsi untuk rekursif menu dan kategori*/
-  // function createTreeView($parent, $menu) {
-  //   $html = "";
-  //   if (isset($menu['parents'][$parent])) {
-  //     $html .= "
-  //     &amp;amp;lt;ol class='tree'&amp;amp;gt;";
-  //     foreach ($menu['parents'][$parent] as $itemId) {
-  //       if(!isset($menu['parents'][$itemId])) {
-  //         $html .= "&amp;amp;lt;li&amp;amp;gt;&amp;amp;lt;label for='subfolder2'
-  //         &amp;amp;gt;&amp;amp;lt;a href='".$menu['items'][$itemId]['link']."'&amp;amp;gt;"
-  //         .$menu['items'][$itemId]['label']."&amp;amp;lt;/a&amp;amp;gt;&amp;amp;lt;/label&amp;amp;gt;
-  //         &amp;amp;lt;input type='checkbox' name='subfolder2'/&amp;amp;gt;&amp;amp;lt;/li&amp;amp;gt;";
-  //       }
-  //       if(isset($menu['parents'][$itemId])) {
-  //         $html .= "
-  //         &amp;amp;lt;li&amp;amp;gt;&amp;amp;lt;label for='subfolder2'&amp;amp;gt;&amp;amp;
-  //         lt;a href='".$menu['items'][$itemId]['link']."'&amp;amp;gt;".$menu['items'][$itemId]['label']
-  //         ."&amp;amp;lt;/a&amp;amp;gt;&amp;amp;lt;/label&amp;amp;gt; &amp;amp;lt;input type='checkbox' name='subfolder2'/
-  //         &amp;amp;
-  //         gt;";
-  //         $html .= createTreeView($itemId, $menu);
-  //         $html .= "&amp;amp;lt;/li&amp;amp;gt;";
-  //       }
-  //     }
-  //     $html .= "&amp;amp;lt;/ol&amp;amp;gt;";
-  //   }
-  //   return $html;
-  // }
+  /*
+  ** Fungsi untuk mengirim email
+  */
+  function sendEmail($host, $port, $username, $password, $name, $idUser, $address, $nameAddr) {
+    require __DIR__ . '/phpmailer/PHPMailerAutoload.php';
+
+    //Create a new PHPMailer instance
+    $mail = new PHPMailer;
+
+    //Tell PHPMailer to use SMTP
+    $mail->isSMTP();
+
+    //Enable SMTP debugging
+    // 0 = off (for production use)
+    // 1 = client messages
+    // 2 = client and server messages
+    $mail->SMTPDebug = 0;
+
+    //Ask for HTML-friendly debug output
+    $mail->Debugoutput = 'html';
+
+    //Set the hostname of the mail server
+    $mail->Host = $host;
+    // $mail->Host = gethostbyname('smtp.gmail.com');
+    // if your network does not support SMTP over IPv6
+
+    //Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+    $mail->Port = $port;
+
+    //Set the encryption system to use - ssl (deprecated) or tls
+    $mail->SMTPSecure = 'tls';
+
+    //Whether to use SMTP authentication
+    $mail->SMTPAuth = true;
+
+    //Username to use for SMTP authentication - use full email address for gmail
+    $mail->Username = $username;
+
+    //Password to use for SMTP authentication
+    $mail->Password = $password;
+
+    //Set who the message is to be sent from
+    $mail->setFrom($username, $name);
+
+    //Set who the message is to be sent to
+    $var_address = $address;
+    $mail->addAddress($var_address, $nameAddr);
+
+    //Set the subject line
+    $mail->Subject = 'Account confirmation';
+
+    //Read an HTML message body from an external file, convert referenced images to embedded,
+    //convert HTML into a basic plain-text alternative body
+    $body = <<<IOT
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <meta charset="utf-8">
+      <title>Email Confirmation</title>
+      </head>
+      <body>
+      <p>
+      Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
+      konfirmasi member <a href="localhost/ecommerce/shop/confirm.php?idUserReg=$idUser">berikut</a>
+      </p>
+      </body>
+      </html>
+IOT;
+    $mail->msgHTML($body);
+
+    //Replace the plain text body with one created manually
+    $altbody = <<<IOT
+      Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
+      konfirmasi member <a href="<?php $_SERVER[REMOTE_ADDR]; ?>?idUserReg=$idUser">berikut</a>
+IOT;
+    $mail->AltBody = $altbody;
+
+    //send the message, check for errors
+    if (!$mail->send()) {
+      //echo "Mailer Error: " . $mail->ErrorInfo;
+    } else {
+      echo "Message sent!";
+    }
+  }
 ?>

@@ -61,6 +61,7 @@
                   </script>
                   <?php if(!empty($_SESSION['customer'])){ ?>
                     <li><a href="logout.php" onclick="myFunction();"></i>Logout</a></li>
+                    <li><a href="../member/index.php"></i>Go to Dashboard</a></li>
                   <?php } ?>
                 </ul>
               </div>
@@ -234,13 +235,30 @@
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
-            <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
-            <button class="aa-browse-btn" type="submit">Login</button>
-            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+          <!--pesan eror  -->
+          <?php if ( isset($var_message) ) : ?>
+            <div class="alert alert-danger">
+              <i class="fa fa-key fa-lg"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong><?= $var_message; ?></strong>
+            </div>
+          <?php endif; ?>
+          <!-- /pesan error -->
+
+          <!-- pesan success -->
+          <?php if ( !empty($var_messagelogin) ) :  ?>
+            <div class="alert alert-info">
+              <i class="fa fa-key fa-lg"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <strong><?= $var_messagelogin; ?></strong>
+            </div>
+          <?php  endif; ?>
+          <!-- pesan success -->
+           <form action="" class="aa-login-form" method="post">
+            <label for="frm_member_username">Username or Email address<span>*</span></label>
+             <input type="text" placeholder="Username or email" name="frm_member_username" id="frm_member_username" required="required">
+             <label for="frm_member_password">Password<span>*</span></label>
+              <input type="password" placeholder="Password" name="frm_member_password" id="frm_member_password" required="required">
+              <button type="submit" class="aa-browse-btn" name="frm_btn_member">Login</button>
+              <p class="aa-lost-password"><a href="forgot_password.php">Lost your password?</a></p>
             <div class="aa-register-now">
               Don't have an account?<a href="login_member.php">Register now!</a>
             </div>

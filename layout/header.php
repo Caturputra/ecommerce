@@ -25,5 +25,6 @@
     <link rel="stylesheet" href="assets/front/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/sweetalert.css">
+    <link rel="stylesheet" href="assets/shop/css/style.css">
   </head>
   <body id="page-top">

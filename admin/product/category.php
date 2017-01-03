@@ -48,7 +48,7 @@
               <strong><?= $var_message; ?></strong>
             </div>
           <?php endif; ?>
-          <form name="table_category" action="" method="post" onsubmit="return deleteConfirm();">
+          <form name="tableCategory" action="" method="post" onsubmit="return deleteConfirm();">
           <div class="align-right">
             <a href="?page=category_add" class="btn btn-primary"><i class="fa fa-plus"> Category</i></a>
             <button type="submit" class="btn btn-danger" name="btn_delete"><i class="fa fa-trash"> Delete</i></button>
@@ -63,15 +63,16 @@
             $var_query = mysqli_query($var_con, $var_sql);
           ?>
           <div class="table-responsive">
-            <table class="table table-bordered" id="category">
-              <tr>
+            <table class="table table-bordered table-hover" id="tableCategory">
               <thead>
-                <th style="width: 1px;"> <input type="checkbox" name="frm_checkboxAll" id="frm_checkboxAll"> </th>
-                <th>Category Name</th>
-                <th>Sort Order</th>
-                <th>Action</th>
+                <tr>
+                  <th style="width: 1px;"> <input type="checkbox" name="frm_checkboxAll" id="frm_checkboxAll"> </th>
+                  <th>Category Name</th>
+                  <th>Sort Order</th>
+                  <th>Action</th>
+                </tr>
               </thead>
-            </tr>
+
               <tbody>
                 <?php
 

@@ -3,6 +3,9 @@
   /* Memanggil database*/
   require '../config.php';
 
+  /* Memanggil fungsi */
+  require '../inc/function.php';
+
   $sid = session_id();
   $init = true;
   $var_sesiuser = $_SESSION['customer'];
@@ -18,6 +21,8 @@
     }
     </script>';
   }
+
+
 ?>
 <!-- halaman utama shopping activity -->
 
@@ -49,7 +54,7 @@
        <div class="row">
          <div class="col-md-12">
           <div class="checkout-area">
-            <form action="">
+            <form action="" method="post">
               <div class="row">
                 <div class="col-md-8">
                   <div class="checkout-left">
@@ -326,15 +331,22 @@
                         </tfoot>
                       </table>
                     </div>
-
+                    <?php
+                      /* Operasi place order untuk dimasukkan ke database */
+                      if (isset($_POST['submit_checkout'])) {
+                        $_SESSION['items'] = $var_product;
+                        var_dump($var_product);
+                      }
+                    ?>
                     <!-- /tampil detail product -->
                     <h4>Payment Method</h4>
                     <div class="aa-payment-method">
                       <label for="cashdelivery"><input type="radio" id="cashdelivery" name="optionsRadios"> Cash on Delivery </label>
                       <label for="paypal"><input type="radio" id="paypal" name="optionsRadios" checked> Via Paypal </label>
                       <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">
-                      <input type="submit" value="Place Order" class="aa-browse-btn">
+                      <input type="submit" value="Place Order" class="aa-browse-btn" name="submit_checkout">
                     </div>
+                    <!-- /.payment-method -->
                   </div>
                 </div>
               </div>

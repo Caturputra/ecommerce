@@ -12,6 +12,7 @@
       if ($act == "add") {
           if (isset($_GET['product_id'])) {
               $product_id = $_GET['product_id'];
+              $_SESSION['product_name'][$product_id];
               if (isset($_SESSION['items'][$product_id])) {
                   $_SESSION['items'][$product_id] += 1;
               } else {

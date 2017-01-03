@@ -246,8 +246,8 @@ if (isset($_POST['btn_insert_product'])) {
               <div class="form-group">
                 <label for="frm_product_desc" class="control-label col-sm-1">Category</label>
                 <div class="col-sm-11">
-                  <select class="form-control select2" name="frm_product_category">
-                    <option value="0">Choose Category</option>
+                  <select class="form-control select2" style="width: 100%;" name="frm_product_category">
+                    <option value="0" selected="selected">Choose Category</option>
                     <?php
                     $var_sqlcat = "SELECT category_parent, category_name, category_id FROM oc_category";
                     $var_querycat = mysqli_query($var_con, $var_sqlcat);
