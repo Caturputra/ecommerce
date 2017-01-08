@@ -132,6 +132,8 @@
 
   <!-- Custom js -->
   <script src="../assets/shop/js/custom.js"></script>
-
+  <script type="text/javascript">
+      
+  </script>
   </body>
 </html>
