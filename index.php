@@ -12,7 +12,7 @@
                     <div class="header-content">
                         <div class="header-content-inner">
                             <h1>Happy Shopping With OurStore Shop, We give you comfortable to shop anything about Computer</h1>
-                            <a href="shop/index.php?cat_id=" class="btn btn-outline btn-xl page-scroll">Start Now for Happy Shopping!</a>
+                            <a href="shop/index.php" class="btn btn-outline btn-xl page-scroll">Start Now for Happy Shopping!</a>
                         </div>
                     </div>
                 </div>
@@ -45,11 +45,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="container-fluid">
+                    <div class="container">
                         <div class="row">
+
+
                           <!-- product-list -->
                           <?php
-                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 1 GROUP BY i.product_id ORDER BY i.product_id DESC LIMIT 0,3";
+                            $var_sql1 = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id JOIN oc_category pd ON pd.category_id = p.category_id WHERE pd.category_parent = 1 GROUP BY p.product_id ORDER BY i.product_id DESC LIMIT 3";
                             $var_query1 = mysqli_query($var_con, $var_sql1);
                             $var_row = mysqli_num_rows($var_query1);
                             if ($var_row > 0) {
@@ -57,9 +59,9 @@
                               while ($var_data = mysqli_fetch_array($var_query1)) {
                           ?>
                           <figure>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="feature-item">
-                                    <a class="aa-product-img"><img src="admin/<?= $var_data['product_image_path']; ?>" class="img-responsive" alt="<?= $var_data['product_image_name'];?>" width="600"/></a>
+                                    <a class="aa-product-img"><img src="admin/<?= $var_data['product_image_path']; ?>" class="img" alt="<?= $var_data['product_image_name'];?>" height="100"/></a>
                                     <figcaption>
                                     <p class="text-muted"><?= $var_data['product_desc']; ?></p>
                                     <p class="text-muted">Price : Rp <?= number_format($var_data['product_price'],0,",","."); ?></p>
@@ -68,7 +70,7 @@
                                   </figcaption>
                                 </div>
                             </div>
-                          </figure>
+                            </figure>
                             <?php
                               }
                             }

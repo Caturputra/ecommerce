@@ -3,7 +3,7 @@
     <div class="aa-sidebar-widget">
       <h3>Category</h3>
       <ul class="menu">
-        <li class=""><a href="?cat_id=">All Category</a></li>
+        <li class=""><a href="?cat_id=all">All Category</a></li>
       </ul>
       <?php
   $var_sqlcat = "SELECT * FROM oc_category WHERE category_parent = 0";

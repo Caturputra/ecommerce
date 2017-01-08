@@ -82,7 +82,7 @@
                 <?php if ( !empty($var_success) ) : ?>
                   <div class="alert alert-info" role="alert">
                     <i class="fa fa-tags fa-lg"></i>
-                    <strong><?php echo "Your account created. login to your account. <a href=\"login_member.php\">Here>></a>" ?></strong>
+                    <strong><?php echo $var_success; ?></strong>
                   </div>
                 <?php endif; ?>
                  <!-- /pesan success -->
@@ -93,32 +93,17 @@
                    <label for="frm_customer_email">Email<span>*</span></label>
                    <input type="email" class="form-control" placeholder="Your email" id="frm_customer_email" name="frm_customer_email" required="required" value="<?php if(isset($_POST['frm_customer_email'])) echo $_POST['frm_customer_email'];?>">
 
-                   <label for="frm_customer_prov">Province<span>*</span></label>
-                   <input type="text" placeholder="Your province" id="frm_customer_prov" name="frm_customer_prov" required="required" value="<?php if(isset($_POST['frm_customer_prov'])) echo $_POST['frm_customer_prov'];?>">
-
-                   <label for="frm_customer_region">Region<span>*</span></label>
-                   <input type="text" placeholder="Your region" id="frm_customer_region" name="frm_customer_region" required="required" value="<?php if(isset($_POST['frm_customer_region'])) echo $_POST['frm_customer_region'];?>">
-
-                   <label for="frm_customer_postcode">Postcode<span>*</span></label>
-                   <input type="text" placeholder="Your postcode" id="frm_customer_postcode" name="frm_customer_postcode" required="required" value="<?php if(isset($_POST['frm_customer_postcode'])) echo $_POST['frm_customer_postcode'];?>">
-
-                   <label for="frm_customer_address">Address<span>*</span></label>
-                   <textarea class="form-control" name="frm_customer_address" id="frm_customer_address" rows="4" cols="40" placeholder="Address" required="required"><?php if(isset($_POST['frm_customer_address'])) echo $_POST['frm_customer_address'];?></textarea>
-
                    <label for="frm_customer_phone">Phone<span>*</span></label>
-                   <input type="text" id="frm_customer_phone" name="frm_customer_phone" placeholder="Phone" required="required" value="<?php if(isset($_POST['frm_customer_phone'])) echo $_POST['frm_customer_phone'];?>">
-
-                   <label for="frm_customer_nation">Nation<span>*</span></label>
-                   <select class="form-control" name="frm_customer_nation" id="frm_customer_nation" required="required">
-                     <option value="">None</option>
-                     <option value="1">Indonesia</option>
-                   </select>
+                   <input type="text" id="frm_customer_phone" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask name="frm_customer_phone" placeholder="Phone" required="required" value="<?php if(isset($_POST['frm_customer_phone'])) echo $_POST['frm_customer_phone'];?>">
 
                    <label for="frm_customer_username">Username<span>*</span></label>
                    <input type="text" placeholder="Username or email" id="frm_customer_username" name="frm_customer_username" required="required" value="<?php if(isset($_POST['frm_customer_username'])) echo $_POST['frm_customer_username'];?>">
 
                    <label for="frm_customer_password">Password<span>*</span></label>
                    <input type="password" placeholder="Password" id="frm_customer_password" name="frm_customer_password" required="required" value="<?php if(isset($_POST['frm_customer_password'])) echo $_POST['frm_customer_password'];?>">
+
+                   <label for="frm_customer_password_confirm">Password Confirm<span>*</span></label>
+                   <input type="password" placeholder="Password" id="frm_customer_password_confirm" name="frm_customer_password_confirm" required="required" value="<?php if(isset($_POST['frm_customer_password'])) echo $_POST['frm_customer_password'];?>">
                    <!--konfirmasi captcha  -->
                    <div class="g-recaptcha" data-sitekey="6Ld5fAwUAAAAAMfBqE7eQUU-9fMTfUU5wXWj5YKY"></div>
                    <!-- /.recaptcha google -->

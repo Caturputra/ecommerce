@@ -252,6 +252,8 @@
             </div>
           <?php  endif; ?>
           <!-- pesan success -->
+
+          <?php include_once "login_member_process.php"; ?>
            <form action="" class="aa-login-form" method="post">
             <label for="frm_member_username">Username or Email address<span>*</span></label>
              <input type="text" placeholder="Username or email" name="frm_member_username" id="frm_member_username" required="required">
