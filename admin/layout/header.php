@@ -5,7 +5,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><?php if(isset($var_titile)) echo $var_titile; ?></title>
+    <title><?php if(isset($var_title)) echo $var_title; ?></title>
     <!-- CSS minified -->
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,10 +26,11 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="../assets/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="../assets/plugins/iCheck/all.css">
     <!-- databble -->
     <link rel="stylesheet" href="../assets/plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../assets/plugins/datatables/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../assets/plugins/select2/select2.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
   </head>
   <body>

@@ -64,7 +64,7 @@ if(isset($_POST['btn_delete'])) {
           $var_query = mysqli_query($var_con, $var_sql);
           ?>
           <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-hover" id="tableProduct">
               <thead class="align-center">
                 <th style="width: 1px;"> <input type="checkbox" name="frm_checkboxAll" id="frm_checkboxAll"> </th>
                 <th>Image</th>

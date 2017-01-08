@@ -1,4 +1,5 @@
 <?php
+  $var_title = "OurStore";
   // operasi php validateSecurity
   require '../config.php';
   require 'login_check.php';
@@ -32,27 +33,7 @@
         if(in_array($p.'.php', $pages)){
           include($pages_dir.'/'.$p.'.php');
         } else {
-          echo '<!-- Content Wrapper. Contains page content -->
-          <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-              <h1>
-                404! Page Not Found!
-              </h1>
-
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-
-              <!-- Your Page Content Here -->
-
-            </section>
-            <!-- /.content -->
-          </div>
-          <!-- /.content-wrapper -->
-
-          ';
+          include '404page.php';
         }
       } else {
         include($pages_dir.'/home.php');

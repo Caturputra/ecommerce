@@ -47,16 +47,16 @@
            <div class="aa-product-catg-content">
              <div class="aa-product-catg-head">
                <div class="aa-product-catg-head-left">
-                 <form action="" class="aa-sort-form">
+                 <form action="" class="aa-sort-form" method="post">
                    <label for="">Sort by</label>
-                   <select name="">
+                   <select name="frm_sort">
                      <option value="1" selected="Default">Default</option>
                      <option value="2">Name</option>
                      <option value="3">Price</option>
                      <option value="4">Date</option>
                    </select>
                  </form>
-                 <form action="" class="aa-show-form">
+                 <form action="frm_show" class="aa-show-form" method="post">
                    <label for="">Show</label>
                    <select name="">
                      <option value="1" selected="12">12</option>
@@ -77,16 +77,18 @@
                     /*
                     ** Menampilkan product
                     */
-                    $var_cat_id = $_GET['cat_id'];
+                    $var_cat_id = isset($_GET['cat_id']) ? $_GET['cat_id'] : "";
+                    $var_product_sort = isset($_POST['frm_sort']) ? $_POST['frm_sort'] : "";
+                    $var_product_show = isset($_POST['frm_show']) ? $_POST['frm_show'] : "";
                     $var_id_mark = mysqli_fetch_array(mysqli_query($var_con, "SELECT category_id FROM oc_category WHERE category_id = '{$var_cat_id}' "));
-                    if (isset($var_cat_id) == $var_id_mark['category_id']) {
+                    if ($var_id_mark['category_id'] === $var_cat_id && $var_product_sort) {
                       $var_sqlimg = "SELECT * FROM oc_product_image i
                                         JOIN oc_product p on p.product_id = i.product_id
                                         JOIN oc_product_desc d on d.product_id = i.product_id
                                         WHERE i.product_id = p.product_id and i.product_id = d.product_id and p.category_id IN
-                                        (SELECT category_parent FROM oc_category WHERE category_parent = '{$var_cat_id}' ) GROUP by i.product_id";
+                                        (SELECT category_parent FROM oc_category WHERE category_parent = '{$var_cat_id}' ) GROUP by i.product_id ORDER BY '{$var_product_sort}' ASC";
                       $var_queryimg = mysqli_query($var_con, $var_sqlimg);
-                    } else {
+                    } else  {
                       $var_sqlimg = "SELECT * FROM oc_product_image i JOIN oc_product p on p.product_id = i.product_id JOIN oc_product_desc d on d.product_id = i.product_id WHERE i.product_id = p.product_id and i.product_id = d.product_id GROUP by i.product_id";
                       $var_queryimg = mysqli_query($var_con, $var_sqlimg);
                     }
@@ -105,7 +107,7 @@
                    <div class="aa-product-hvr-content">
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                     <a href="#=<?= $var_img['product_id'] ?>" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-id="<?= $var_img['product_id']; ?>" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                     <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-id="<?= $var_img['product_id']; ?>" data-target="#quick-view-modal" class="edit-record"><span class="fa fa-search"></span></a>
                    </div>
                    <!-- product badge -->
                    <!-- <span class="aa-badge aa-sale" href="#">SALE!</span> -->
@@ -270,19 +272,21 @@
     <!-- / Client Brand -->
 
     <script type="text/javascript">
-    $(document).ready(function(){
-  $('#quick-view-modal').on('show.bs.modal', function (e) {
-      var rowid = $(e.relatedTarget).data('id');
-      $.ajax({
-          type : 'post',
-          url : 'index.php', //Here you will fetch records
-          data :  'rowid='+ product_id, //Pass $id
-          success : function(data){
-          $('.fetched-data').html(data);//Show fetched data from database
-          }
+      $(document).ready(function(){
+        $(".edit-record").click(function(e) {
+          var m = $(this).attr("data-id");
+         $.ajax({
+              url: "hasil.php",
+              type: "GET",
+              data : {product_id: m,},
+              success: function (ajaxData){
+                $("#quick-view-modal").html(ajaxData);
+                $("#quick-view-modal").modal('show',{backdrop: 'true'});
+               }
+             });
+            });
+          });
       });
-   });
-});
     </script>
 
 <!-- /end content -->

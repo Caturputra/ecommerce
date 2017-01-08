@@ -118,6 +118,7 @@
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js?hl=en'></script>
   <script type="text/javascript" src="../assets/shop/js/jquery.smartmenus.js"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
   <script type="text/javascript" src="../assets/shop/js/jquery.smartmenus.bootstrap.js"></script>

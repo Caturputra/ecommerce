@@ -19,7 +19,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <!-- databble -->
+    <link rel="stylesheet" href="../assets/al/dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../assets/shop/css/jquery.simpleLens.css">
     <link rel="stylesheet" href="../assets/shop/css/jquery.smartmenus.bootstrap.css">
     <link rel="stylesheet" href="../assets/shop/css/nouislider.css">
@@ -28,4 +28,3 @@
     <link rel="stylesheet" href="../assets/shop/css/style.css">
   </head>
   <body>
-  
