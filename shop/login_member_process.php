@@ -1,16 +1,16 @@
 <?php
 
 /* Memanggil database */
-require '../config.php';
+require_once '../config.php';
 
 /* Memanggil fungsi */
-require '../inc/function.php';
+require_once '../inc/function.php';
 
 //jika button insert berfungsi
 if (isset($_POST['frm_btn_member'])) {
     // deklarasi variabel insert
-    $var_name = validateSecurity($_POST['frm_member_username']);
-    $var_pass = validateSecurity($_POST['frm_member_password']);
+    $var_name = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_member_username']));
+    $var_pass = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_member_password']));
     $var_init = true;
 
     //validasi name
@@ -26,7 +26,7 @@ if (isset($_POST['frm_btn_member'])) {
 
     // validasi password
     if (empty($var_pass)) {
-        $var_message = "We need your passoword";
+        $var_message = "We need your password";
         $var_init = "false";
     }
 
@@ -34,8 +34,11 @@ if (isset($_POST['frm_btn_member'])) {
         if ($var_init = true) {
             $var_sqluser = "SELECT customer_username, customer_password, customer_mail FROM oc_customer WHERE customer_status = 1";
             $var_queryuser = mysqli_query($var_con, $var_sqluser);
+            $var_dataUser = mysqli_fetch_array($var_queryuser);
+            //membaca password_hash
+            $var_password_new_confirm = readPassword($var_dataUser['customer_password'], $var_pass);
             while ($var_datauser = mysqli_fetch_array($var_queryuser)) {
-                if (($var_datauser['customer_mail'] == $var_name || $var_datauser['customer_username'] == $var_name) and $var_datauser['customer_password'] == $var_pass) {
+                if (($var_datauser['customer_mail'] == $var_name || $var_datauser['customer_username'] == $var_name) and $var_password_new_confirm = true) {
                     $_SESSION['customer'] = $var_name;
                     echo "
                     <div class=\"alert alert-info\">
@@ -43,7 +46,7 @@ if (isset($_POST['frm_btn_member'])) {
                     <strong>You have been loggin.</strong>
                     </div>";
 
-                } else if (($var_datauser['customer_mail'] != $var_name || $var_datauser['customer_username'] != $var_name) or $var_datauser['customer_password'] != $var_pass) {
+                } else if (($var_datauser['customer_mail'] != $var_name || $var_datauser['customer_username'] != $var_name) or $var_password_new_confirm = false) {
                     $var_message = "Your username or password invalid.";
                 }
             }
@@ -55,12 +58,12 @@ if (isset($_POST['frm_btn_member'])) {
 //jika button register berfungsi
 if (isset($_POST['frm_btn_register'])) {
     // deklarasi variabel insert
-    $var_name = validateSecurity($_POST['frm_customer_name']);
-    $var_email = validateSecurity($_POST['frm_customer_email']);
-    $var_phone = validateSecurity($_POST['frm_customer_phone']);
-    $var_username = validateSecurity($_POST['frm_customer_username']);
-    $var_password = validateSecurity($_POST['frm_customer_password']);
-    $var_password_confirm = validateSecurity($_POST['frm_customer_password_confirm']);
+    $var_name = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_name']));
+    $var_email = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_email']));
+    $var_phone = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_phone']));
+    $var_username = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_username']));
+    $var_password = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_password']));
+    $var_password_confirm = mysqli_real_escape_string($var_con, validateSecurity($_POST['frm_customer_password_confirm']));
     $var_captcha = isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response']:'';
     $var_date = date('Y:m:d h:i:s');
     $var_init = true;
@@ -95,8 +98,6 @@ if (isset($_POST['frm_btn_register'])) {
             $var_init = false;
         }
     } else
-
-    // validasi email preg_match
 
     // validasi phone
     if (empty($var_phone)) {
@@ -166,39 +167,40 @@ if (isset($_POST['frm_btn_register'])) {
     } else
 
     if ($var_init == true) {
+        $var_password_new = generatePassword($var_password);
         /* Validasi config recaptcha */
-        $var_url = "https://www.google.com/recaptcha/api/siteverify";
-        $var_secret = "6Ld5fAwUAAAAAEXO6B5KieoVIrHX8swLu2OJDISR";
-        $var_response = file_get_contents($var_url . '?secret=' . urlencode($var_secret) . '&response=' . $var_captcha . '&remoteip=' . $_SERVER['REMOTE_ADDR']);
-        $var_data = json_decode($var_response);
-        if ($var_data->success == true) {
-            $var_dataregister = array(
-                'customer_name' => $var_name,
-                'customer_mail' => $var_email,
-                'customer_telp' => $var_phone,
-                'customer_status' => 0,
-                'customer_added' => $var_date,
-                'customer_username' => $var_username,
-                'customer_password' => $var_password
-            );
-            if (insert($var_con, "oc_customer", $var_dataregister)) {
+        // $var_url = "https://www.google.com/recaptcha/api/siteverify";
+        // $var_secret = "6Ld5fAwUAAAAAEXO6B5KieoVIrHX8swLu2OJDISR";
+        // $var_response = file_get_contents($var_url . '?secret=' . urlencode($var_secret) . '&response=' . $var_captcha . '&remoteip=' . $_SERVER['REMOTE_ADDR']);
+        // $var_data = json_decode($var_response);
+        // if ($var_data->success == true) {
+        $var_dataregister = array(
+            'customer_name' => $var_name,
+            'customer_mail' => $var_email,
+            'customer_telp' => $var_phone,
+            'customer_status' => 0,
+            'customer_added' => $var_date,
+            'customer_username' => $var_username,
+            'customer_password' => $var_password_new
+        );
+        if (insert($var_con, "oc_customer", $var_dataregister)) {
 
-            } else {
-                $var_success = "Your member registration is created. See Your email to confirm your account.";
-                /* Kirim email konfirmasi*/
-                $var_host = "mail.caturputra.dev.php.or.id";
-                $var_port = 587;
-                $var_emailusername = "info@caturputra.dev.php.or.id";
-                $var_emailpassword = "batangkauman00";
-                $var_emailname = "OurStore";
-                $var_idUser = $var_username;
-                $var_emailaddress = $var_email;
-                $var_nameAddr = $var_name;
-                sendEmail($var_host, $var_port, $var_emailusername, $var_emailpassword, $var_emailname, $var_idUser, $var_emailaddress, $var_nameAddr);
-            }
         } else {
-            $var_messagep = "Confirm that you are <strong>Human</strong>.";
+            $var_success = "Your member registration is created. See Your email to confirm your account.";
+            /* Kirim email konfirmasi*/
+            $var_host = "mail.caturputra.dev.php.or.id";
+            $var_port = 587;
+            $var_emailusername = "info@caturputra.dev.php.or.id";
+            $var_emailpassword = "batangkauman00";
+            $var_emailname = "OurStore";
+            $var_idUser = $var_username;
+            $var_emailaddress = $var_email;
+            $var_nameAddr = $var_name;
+            sendEmail($var_host, $var_port, $var_emailusername, $var_emailpassword, $var_emailname, $var_idUser, $var_emailaddress, $var_nameAddr);
         }
+        // } else {
+        //     $var_messagep = "Confirm that you are <strong>Human</strong>.";
+        // }
     }
 }
 ?>

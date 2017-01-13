@@ -1,83 +1,83 @@
 <?php
-  /*
-  ** Fungsi untuk validasi form input
-  */
-  function validateSecurity($var_data) {
+/*
+** Fungsi untuk validasi form input
+*/
+function validateSecurity($var_data) {
     //$data = mysqli_escape_string($var_con, $var_data);
     $data = addslashes($var_data);
     $data = htmlentities($var_data);
     $data = strip_tags($var_data);
     $data = trim($var_data);
     return $data;
-  }
+}
 
-  /*
-  ** Fungsi untuk input data
-  */
-  function insert($connection, $tblname, array $val_cols){
+/*
+** Fungsi untuk input data
+*/
+function insert($connection, $tblname, array $val_cols){
 
-		$keysString = implode(", ", array_keys($val_cols));
+    $keysString = implode(", ", array_keys($val_cols));
 
-		// print key and value for the array
-		$i=0;
-		foreach($val_cols as $key=>$value) {
-			$StValue[$i] = "'".$value."'";
-		    $i++;
-		}
+    // print key and value for the array
+    $i=0;
+    foreach($val_cols as $key=>$value) {
+        $StValue[$i] = "'".$value."'";
+        $i++;
+    }
 
-		$StValues = implode(", ",$StValue);
+    $StValues = implode(", ",$StValue);
 
-		if (mysqli_connect_errno()) {
-		  $var_message =  "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
+    if (mysqli_connect_errno()) {
+        $var_message =  "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
 
-		if(mysqli_query($connection,"INSERT INTO $tblname ($keysString) VALUES ($StValues)"))
-		{
-			$var_message =  "Successfully Inserted data<br>";
-		}
-		else{
-			$var_message =  "Data not Inserted";
-		}
-	}
+    if(mysqli_query($connection,"INSERT INTO $tblname ($keysString) VALUES ($StValues)"))
+    {
+        $var_message =  "Successfully Inserted data<br>";
+    }
+    else{
+        $var_message =  "Data not Inserted";
+    }
+}
 
-  /*
-  ** Fungsi untuk update data
-  */
-  function update($connection, $tblname, array $set_val_cols, array $cod_val_cols){
+/*
+** Fungsi untuk update data
+*/
+function update($connection, $tblname, array $set_val_cols, array $cod_val_cols){
 
-		$i=0;
-		foreach($set_val_cols as $key=>$value) {
-			$set[$i] = $key." = '".$value."'";
-		    $i++;
-		}
+    $i=0;
+    foreach($set_val_cols as $key=>$value) {
+        $set[$i] = $key." = '".$value."'";
+        $i++;
+    }
 
-		$Stset = implode(", ",$set);
+    $Stset = implode(", ",$set);
 
-		$i=0;
-		foreach($cod_val_cols as $key=>$value) {
-			$cod[$i] = $key." = '".$value."'";
-		    $i++;
-		}
+    $i=0;
+    foreach($cod_val_cols as $key=>$value) {
+        $cod[$i] = $key." = '".$value."'";
+        $i++;
+    }
 
-		$Stcod = implode(" AND ",$cod);
+    $Stcod = implode(" AND ",$cod);
 
-		if(mysqli_query($connection,"UPDATE $tblname SET $Stset WHERE $Stcod")){
-			if(mysqli_affected_rows($connection)){
-				$var_message =  "Data updated successfully<br>";
-			}
-			else{
-				$var_message =  "The data you want to updated is no loger exists<br>";
-			}
-		}
-		else{
-			$var_message =  "Error updating record: " . mysqli_error($conn);
-		}
-	}
+    if(mysqli_query($connection,"UPDATE $tblname SET $Stset WHERE $Stcod")){
+        if(mysqli_affected_rows($connection)){
+            $var_message =  "Data updated successfully<br>";
+        }
+        else{
+            $var_message =  "The data you want to updated is no loger exists<br>";
+        }
+    }
+    else{
+        $var_message =  "Error updating record: " . mysqli_error($conn);
+    }
+}
 
-  /*
-  ** Fungsi untuk hapus data
-  */
-  function delete($connection, $tblname, array $val_cols){
+/*
+** Fungsi untuk hapus data
+*/
+function delete($connection, $tblname, array $val_cols){
 
     $i=0;
     foreach($val_cols as $key=>$value) {
@@ -98,45 +98,45 @@
     else{
         $var_message =  "Error deleting data: " . mysqli_error($connection);
     }
-  }
+}
 
-  /*
-  ** Fungsi untuk ambil data
-  */
-  function fetch($connection, $table, array $columns){
+/*
+** Fungsi untuk ambil data
+*/
+function fetch($connection, $table, array $columns){
     $columns = implode(",",$columns);
     $result = mysqli_query($connection, "SELECT $columns FROM $table");
 
     if(mysqli_connect_errno())
     {
-      $var_message =  "Failed to connect to MySQL: " . mysqli_connect_error();
+        $var_message =  "Failed to connect to MySQL: " . mysqli_connect_error();
     }
 
     //return tow dimentional array as required columns result
     return mysqli_fetch_all($result,MYSQLI_ASSOC);
-  }
+}
 
-  /*
-  ** Fungsi untuk random string
-  */
-  function randpass($length){
+/*
+** Fungsi untuk random string
+*/
+function randpass($length){
     //    karakter yang bisa dipakai sebagai password
     $string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     $len = strlen($string);
 
     //    mengenerate password
     for($i=1;$i<=$length; $i++){
-      $start = rand(0, $len);
-      $pass .= substr($string, $start, 1);
+        $start = rand(0, $len);
+        $pass .= substr($string, $start, 1);
     }
 
     return $pass;
-  }
+}
 
-  /*
-  ** Fungsi untuk mengirim email
-  */
-  function sendEmail($host, $port, $username, $password, $name, $idUser, $address, $nameAddr) {
+/*
+** Fungsi untuk mengirim email
+*/
+function sendEmail($host, $port, $username, $password, $name, $idUser, $address, $nameAddr) {
     require __DIR__ . '/phpmailer/PHPMailerAutoload.php';
 
     //Create a new PHPMailer instance
@@ -187,34 +187,50 @@
     //Read an HTML message body from an external file, convert referenced images to embedded,
     //convert HTML into a basic plain-text alternative body
     $body = <<<IOT
-      <!DOCTYPE html>
-      <html>
-      <head>
-      <meta charset="utf-8">
-      <title>Email Confirmation</title>
-      </head>
-      <body>
-      <p>
-      Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
-      konfirmasi member <a href="localhost/ecommerce/shop/confirm.php?idUserReg=$idUser">berikut</a>
-      </p>
-      </body>
-      </html>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>Email Confirmation</title>
+    </head>
+    <body>
+    <p>
+    Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
+    konfirmasi member <a href="localhost/ecommerce/shop/confirm.php?idUserReg=$idUser">berikut</a>
+    </p>
+    </body>
+    </html>
 IOT;
     $mail->msgHTML($body);
 
     //Replace the plain text body with one created manually
     $altbody = <<<IOT
-      Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
-      konfirmasi member <a href="<?php $_SERVER[REMOTE_ADDR]; ?>?idUserReg=$idUser">berikut</a>
+    Terima kasih telah menjadi Member OurStore Shop,<br>Silahkan lakukan
+    konfirmasi member <a href="<?php $_SERVER[REMOTE_ADDR]; ?>?idUserReg=$idUser">berikut</a>
 IOT;
     $mail->AltBody = $altbody;
 
     //send the message, check for errors
     if (!$mail->send()) {
-      //echo "Mailer Error: " . $mail->ErrorInfo;
+        //echo "Mailer Error: " . $mail->ErrorInfo;
     } else {
-      echo "Message sent!";
+        echo "Message sent!";
     }
-  }
+}
+
+/*
+** Fungsi untuk generate password hash
+*/
+function generatePassword($var_pass) {
+    $var_pass = password_hash($var_pass, PASSWORD_BCRYPT, $option=['cos' => 1]);
+    return $var_pass;
+}
+
+/*
+** Fungsi untuk cek password hash
+*/
+function readPassword($var_code, $var_pass) {
+    $var_gen = password_verify($var_code,$var_pass);
+    return $var_gen;
+}
 ?>

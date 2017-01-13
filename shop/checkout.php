@@ -1,10 +1,10 @@
 <?php
 session_start();
 /* Memanggil database*/
-require '../config.php';
+require_once '../config.php';
 
 /* Memanggil fungsi */
-require '../inc/function.php';
+//require_once '../inc/function.php';
 
 $sid = session_id();
 $init = true;
@@ -355,12 +355,24 @@ if (empty($_SESSION['customer'])) {
                                             );
                                             $var_trans = array(
                                                 'trans_id' => $temp,
-                                                'trans_total' => $total
+                                                'trans_total' => $total,
+                                                'trans_customer' => $_SESSION['customer']
                                             );
                                             if (insert($var_con, "oc_trans", $var_trans)) {
                                                 echo "fail";
                                             } else {
-                                                insert($var_con, "oc_trans_detail", $var_data);
+                                                if (insert($var_con, "oc_trans_detail", $var_data)) {
+
+                                                } else {
+                                                    echo '<script>
+                                                    var conn=confirm("Your order is being processed, Continue Shopping?.");
+                                                    if(conn==true){
+                                                        window.location.assign("index.php");
+                                                    } else {
+                                                        window.location.assign("../member/index.php");
+                                                    }
+                                                    </script>';
+                                                }
                                             }
                                         }
                                         }

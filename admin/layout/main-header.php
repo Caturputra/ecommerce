@@ -55,7 +55,7 @@
             <!-- The user image in the navbar-->
             <img src="../images/avatar5.png" class="user-image" alt="User Image">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">Hello, <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></span>
+            <span class="hidden-xs">Hello, <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) {echo $_SESSION['username'];} else {echo $_SESSION['customer'];} ?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
@@ -63,15 +63,17 @@
               <img src="../images/avatar5.png" class="img-circle" alt="User Image">
 
               <p>
-                <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) echo $_SESSION['username']; ?>
+                <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) {echo $_SESSION['username'];} else {echo $_SESSION['customer'];} ?>
               </p>
             </li>
             <!-- Menu Body -->
             <li class="user-body">
               <div class="row">
-                <div class="col-xs-2 text-center">
+                <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) {echo '<div class="col-xs-2 text-center">
                   <a href="#">Administrator</a>
-                </div>
+                </div>';} else {echo '<div class="col-xs-2 text-center">
+                  <a href="#">Member</a>
+                </div>';} ?>
               </div>
               <!-- /.row -->
             </li>

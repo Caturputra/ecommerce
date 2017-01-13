@@ -1,13 +1,13 @@
 <?php
   $var_title = "Member Dashboard";
   // operasi php validateSecurity
-  // require '../config.php';
-  // require 'login_check.php';
-  // $var_username = $_SESSION['username'];
-  //
-  // if (empty($var_username)) {
-  //   header('location: login.php');
-  // }
+  require_once '../config.php';
+  // require_once 'login_check.php';
+  $var_username = $_SESSION['customer'];
+
+  if (empty($var_username)) {
+    header('location: index.php');
+  }
 ?>
 
 <?php include __DIR__ . '/../admin/layout/header.php'; ?>
@@ -32,7 +32,7 @@
           <img src="../images/avatar5.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>  <?php /*Echo nama admin*/ if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></p>
+          <p>  <?php /*Echo nama admin*/ if(isset($_SESSION['customer'])) echo $_SESSION['customer']; ?></p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>

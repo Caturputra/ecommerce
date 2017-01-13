@@ -57,9 +57,9 @@
                 <!-- pesan success -->
                  <form action="" class="aa-login-form" method="post">
                   <label for="frm_member_username">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email" name="frm_member_username" id="frm_member_username" required="required">
+                   <input type="text" placeholder="Username or email" name="frm_member_username" id="frm_member_username" >
                    <label for="frm_member_password">Password<span>*</span></label>
-                    <input type="password" placeholder="Password" name="frm_member_password" id="frm_member_password" required="required">
+                    <input type="password" placeholder="Password" name="frm_member_password" id="frm_member_password" >
                     <button type="submit" class="aa-browse-btn" name="frm_btn_member">Login</button>
                     <p class="aa-lost-password"><a href="forgot_password.php">Lost your password?</a></p>
                   </form>
